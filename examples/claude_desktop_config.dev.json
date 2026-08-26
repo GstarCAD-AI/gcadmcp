@@ -1,0 +1,15 @@
+# Example: development launch via uv (no global install required)
+{
+  "mcpServers": {
+    "gstarcad": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\src\\gstarcad-mcp-server",
+        "run",
+        "gstarcad-mcp",
+        "serve"
+      ]
+    }
+  }
+}

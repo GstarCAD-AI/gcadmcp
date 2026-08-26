@@ -1,0 +1,12 @@
+# Example: Claude Desktop / generic MCP host (stdio)
+{
+  "mcpServers": {
+    "gstarcad": {
+      "command": "gstarcad-mcp",
+      "args": ["serve"],
+      "env": {
+        "GSTARCAD_MCP_CONFIG": "C:\\Users\\USER\\.config\\gstarcad-mcp\\server.toml"
+      }
+    }
+  }
+}

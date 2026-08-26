@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "gstarcad": {
+      "type": "stdio",
+      "command": "gstarcad-mcp",
+      "args": ["serve"],
+      "env": {
+        "GSTARCAD_MCP_CONFIG": "C:\\Users\\USER\\.config\\gstarcad-mcp\\server.toml"
+      }
+    }
+  }
+}

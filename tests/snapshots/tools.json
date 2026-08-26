@@ -1,0 +1,296 @@
+{
+  "gcad_activate_document": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Make a registered document the active GstarCAD document. Idempotent.",
+    "inputSchema": null,
+    "name": "gcad_activate_document",
+    "outputSchema": null,
+    "title": "Activate a document"
+  },
+  "gcad_apply_actions": {
+    "annotations": {
+      "destructive_hint": true,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Primary tool for complex deterministic edits. Prevalidates every action, checks permission and revision, executes sequentially in the COM actor, and reports exact per-action outcomes. Mutating and potentially destructive depending on the batch; atomicity is reported honestly (transaction_mode), never assumed.",
+    "inputSchema": null,
+    "name": "gcad_apply_actions",
+    "outputSchema": null,
+    "title": "Apply a batch of typed actions"
+  },
+  "gcad_begin_run": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Start an auditable drawing run: creates the run directory, manifest, and brief. Idempotent by operation_id.",
+    "inputSchema": null,
+    "name": "gcad_begin_run",
+    "outputSchema": null,
+    "title": "Begin an evidence run"
+  },
+  "gcad_capture_before_state": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Persist the initial structural entity inventory (and optional 'before' screenshot) for a run. Idempotent unless replace=true.",
+    "inputSchema": null,
+    "name": "gcad_capture_before_state",
+    "outputSchema": null,
+    "title": "Capture before-state evidence"
+  },
+  "gcad_capture_view": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Capture the requested document's viewport as PNG evidence. Activates the document and zooms to extents by default. Returns a resource URI; blank/uniform captures are flagged.",
+    "inputSchema": null,
+    "name": "gcad_capture_view",
+    "outputSchema": null,
+    "title": "Capture a viewport screenshot"
+  },
+  "gcad_close_document": {
+    "annotations": {
+      "destructive_hint": true,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Close a server-owned document. External documents are denied by default. save_policy 'discard' is destructive.",
+    "inputSchema": null,
+    "name": "gcad_close_document",
+    "outputSchema": null,
+    "title": "Close a server-owned document"
+  },
+  "gcad_collect_evidence": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Collect the current entity inventory, document summary, and a review screenshot for a run.",
+    "inputSchema": null,
+    "name": "gcad_collect_evidence",
+    "outputSchema": null,
+    "title": "Collect after-state evidence"
+  },
+  "gcad_create_entities": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Create a list of supported entities in one batch. Internally executed through the same action engine as gcad_apply_actions. Idempotent by operation_id.",
+    "inputSchema": null,
+    "name": "gcad_create_entities",
+    "outputSchema": null,
+    "title": "Create entities"
+  },
+  "gcad_ensure_layers": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Create or update several layers in one call. Mutating but non-destructive and idempotent for identical specs.",
+    "inputSchema": null,
+    "name": "gcad_ensure_layers",
+    "outputSchema": null,
+    "title": "Ensure layers exist"
+  },
+  "gcad_finalize_run": {
+    "annotations": {
+      "destructive_hint": true,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Save the deliverable, capture final evidence, validate, and write the final manifest/feedback. Missing evidence yields partial, never full success. Idempotent by operation_id.",
+    "inputSchema": null,
+    "name": "gcad_finalize_run",
+    "outputSchema": null,
+    "title": "Finalize a run"
+  },
+  "gcad_get_entities": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": true,
+      "title": null
+    },
+    "description": "Fetch richer details for known entity handles. Missing handles are reported in missing_handles rather than as an error.",
+    "inputSchema": null,
+    "name": "gcad_get_entities",
+    "outputSchema": null,
+    "title": "Get entities by handle"
+  },
+  "gcad_get_run_status": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": true,
+      "title": null
+    },
+    "description": "Return current run state and artifact links without mutation.",
+    "inputSchema": null,
+    "name": "gcad_get_run_status",
+    "outputSchema": null,
+    "title": "Run status"
+  },
+  "gcad_get_status": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": true,
+      "title": null
+    },
+    "description": "Return server, runtime, platform, GstarCAD, protocol, and capability status. Read-only and safe to call first; it works even when GstarCAD startup failed, returning a diagnosis instead of raising.",
+    "inputSchema": null,
+    "name": "gcad_get_status",
+    "outputSchema": null,
+    "title": "GstarCAD server status"
+  },
+  "gcad_list_documents": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": true,
+      "title": null
+    },
+    "description": "List registered open GstarCAD documents with server document ids, ownership, revisions, and the active document. Read-only.",
+    "inputSchema": null,
+    "name": "gcad_list_documents",
+    "outputSchema": null,
+    "title": "List open documents"
+  },
+  "gcad_list_layers": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": true,
+      "title": null
+    },
+    "description": "List normalized layer metadata (name, color, linetype, flags) for one document.",
+    "inputSchema": null,
+    "name": "gcad_list_layers",
+    "outputSchema": null,
+    "title": "List layers"
+  },
+  "gcad_list_layouts": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": true,
+      "title": null
+    },
+    "description": "List model/paper layouts in tab order for one document.",
+    "inputSchema": null,
+    "name": "gcad_list_layouts",
+    "outputSchema": null,
+    "title": "List layouts"
+  },
+  "gcad_new_document": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Create a new server-owned GstarCAD drawing, optionally from a workspace template. Idempotent by operation_id.",
+    "inputSchema": null,
+    "name": "gcad_new_document",
+    "outputSchema": null,
+    "title": "Create a new drawing"
+  },
+  "gcad_open_document": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Open an existing DWG/DXF from the workspace inputs. Idempotent by operation_id; reopening the same canonical path returns the registered document.",
+    "inputSchema": null,
+    "name": "gcad_open_document",
+    "outputSchema": null,
+    "title": "Open a drawing from the workspace"
+  },
+  "gcad_query_entities": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": true,
+      "title": null
+    },
+    "description": "Read normalized entity summaries from one registered document with filtering and pagination. Use next_cursor to page large drawings. Does not modify geometry.",
+    "inputSchema": null,
+    "name": "gcad_query_entities",
+    "outputSchema": null,
+    "title": "Query entities"
+  },
+  "gcad_save_document": {
+    "annotations": {
+      "destructive_hint": true,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": false,
+      "title": null
+    },
+    "description": "Save a document in place or to a workspace-relative output path (save_as). Saving external documents in place is profile-restricted; overwrite is destructive.",
+    "inputSchema": null,
+    "name": "gcad_save_document",
+    "outputSchema": null,
+    "title": "Save a document"
+  },
+  "gcad_validate_run": {
+    "annotations": {
+      "destructive_hint": false,
+      "idempotent_hint": true,
+      "open_world_hint": false,
+      "read_only_hint": true,
+      "title": null
+    },
+    "description": "Run deterministic structural validation against the run's evidence (inventories, screenshot, save state, journal). Does not claim semantic visual correctness.",
+    "inputSchema": null,
+    "name": "gcad_validate_run",
+    "outputSchema": null,
+    "title": "Validate run evidence"
+  }
+}

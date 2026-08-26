@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# Environments
+.venv*/
+venv/
+
+# Tooling caches
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# uv
+# uv.lock is committed intentionally
+
+# Local workspace/run artifacts (server creates these outside the repo by
+# default, but keep any accidental local ones out of version control)
+GstarCAD-MCP/
+gcadclaw_runs/
+
+# Live smoke workspaces created by scripts/smoke_mcp.py / smoke_full.py
+# (runs, outputs, screenshots, logs, idempotency records)
+smoke_workspace/
+fullcoverage_workspace/
+
+# Stray logs (server logs normally live under a workspace directory)
+*.log
+
+# Editors / OS
+.idea/
+.vscode/
+*.swp
+Thumbs.db

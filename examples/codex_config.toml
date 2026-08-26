@@ -1,0 +1,13 @@
+# Example Codex CLI MCP server configuration.
+# Launch notes:
+# - host-launched processes may not inherit your shell environment;
+# - use absolute executable/config paths in production;
+# - GstarCAD must run in the same interactive Windows session;
+# - do not run two server processes against one GstarCAD instance.
+
+[mcp_servers.gstarcad]
+command = "gstarcad-mcp"
+args = ["serve"]
+
+[mcp_servers.gstarcad.env]
+GSTARCAD_MCP_CONFIG = "C:\\Users\\USER\\.config\\gstarcad-mcp\\server.toml"

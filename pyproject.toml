@@ -1,0 +1,81 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gstarcad-mcp-server"
+version = "0.1.0"
+description = "Dedicated MCP server for GstarCAD automation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = [
+  "mcp>=2,<3",
+  "pydantic>=2.9,<3",
+  "pydantic-settings>=2.5,<3",
+  "anyio>=4.4,<5",
+  "platformdirs>=4.3,<5",
+  "pygcadwin>=0.2,<0.3",
+  "gcadclaw-assets>=0.2,<0.3",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "pytest-cov>=5",
+  "ruff>=0.9",
+  "mypy>=1.14",
+  "jsonschema>=4.23",
+  "pyyaml>=6",
+  "black>=25.1",
+  "pre-commit>=4",
+]
+http = [
+  "uvicorn>=0.34",
+]
+
+[project.scripts]
+gstarcad-mcp = "gstarcad_mcp.cli:main"
+
+[tool.uv.sources]
+pygcadwin = { path = "../pygcadwin", editable = true }
+gcadclaw-assets = { path = "../gcadclaw", editable = true }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gstarcad_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# The suite is anyio-based. pytest-asyncio is disabled: its Runner-based
+# fixture finalizers execute in a different asyncio task than fixture setup,
+# which breaks MCP Client session teardown ("Attempted to exit cancel scope
+# in a different task"). anyio's runner executes async fixtures and tests
+# in one task; anyio_mode=auto also collects the async tests that carry no
+# explicit pytest.mark.anyio marker.
+addopts = ["-p", "no:asyncio"]
+anyio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+# Black owns formatting; ruff catches real errors (pycodestyle E + pyflakes F).
+select = ["E", "F"]
+ignore = [
+  # Pydantic Field() defaults in MCP tool signatures are the required SDK pattern.
+  "B008",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+]

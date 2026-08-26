@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  static-and-unit:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        python: ["3.10", "3.11", "3.12", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install Python
+        run: uv python install ${{ matrix.python }}
+      - name: Sync dependencies
+        run: uv sync --all-extras
+      - name: Ruff check
+        run: uv run ruff check src tests scripts
+      - name: Black format check
+        run: uv run black --check --line-length 100 src tests scripts
+      - name: Type check (server package)
+        run: uv run mypy src/gstarcad_mcp --ignore-missing-imports
+        if: matrix.python == '3.12'
+      - name: Tests with coverage
+        run: uv run pytest tests -q --cov=gstarcad_mcp --cov-report=term-missing
+        env:
+          GSTARCAD_MCP_TEST_TMP: "1"
+      - name: Build wheel and sdist
+        run: uv build --wheel --sdist
+      - name: Schema snapshot check
+        run: uv run pytest tests/contract/test_schema_snapshots.py -q
+
+  windows-integration:
+    # Real GstarCAD integration requires a protected self-hosted Windows
+    # runner with an interactive desktop; never run on untrusted PRs.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: [self-hosted, windows, gstarcad]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Run integration suite serially
+        run: |
+          $env:GSTARCAD_MCP_INTEGRATION = "1"
+          uv run pytest tests/integration_windows -q -p no:cacheprovider --maxfail=1
